@@ -18,6 +18,11 @@ function sortear(){
         return;
     }
 
+    if(quantidade == 0){
+        alert('Não é possível a quantidade ser zero.');
+        return;
+    }
+
     if(de == 0 && ate == 0){
         alert('Não é possível sortear de zero até zero.');
         return;
