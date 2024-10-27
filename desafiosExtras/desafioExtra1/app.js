@@ -1,14 +1,28 @@
 function essaPalavraEhUmPalindromo(){
-    let palavra = "oi";
-    let separandoAsLetrasDaPalavra = palavra.split("");
+    let palavraOuFraseOriginal = "   a lupa pula    ";
+    palavraOuFraseOriginal = palavraOuFraseOriginal.replace(/\s+/g, ' ').toLowerCase().trim();
+
+    palavraOuFrase = palavraOuFraseOriginal.replace(/\s+/g, '');
+    let separandoAsLetrasDaPalavra = palavraOuFrase.split("");
     let palavraInvertida = separandoAsLetrasDaPalavra.reverse();
     palavraInvertida = palavraInvertida.join("");
 
-    if(palavra == palavraInvertida){
-        console.log("A palavra " + palavra + " é um palíndromo!");
+    if(palavraOuFrase == palavraInvertida){
+        if(palavraOuFraseOriginal.trim().includes(" ")){
+            console.log("A frase " + palavraOuFraseOriginal + " é um palíndromo!");
+        }
+        else{
+            console.log("A palavra " + palavraOuFraseOriginal + " é um palíndromo!");
+        }
+        
     }
     else{
-        console.log("A palavra " + palavra + " não é um palíndromo!");
+        if(palavraOuFraseOriginal.trim().includes(" ")){
+            console.log("A frase " + palavraOuFraseOriginal + " não é um palíndromo!");
+        }
+        else{
+            console.log("A palavra " + palavraOuFraseOriginal + " não é um palíndromo!");
+        }
     }
 }
 
