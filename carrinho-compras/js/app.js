@@ -1,4 +1,5 @@
 let totalGeral;
+let carrinho = [];
 limpar();
 
 function adicionar(){
@@ -6,22 +7,33 @@ function adicionar(){
         //recuperar valores nome do produto, quantidade e valor
         let produto = document.getElementById('produto').value;
         let nomeProduto = produto.split('-')[0];
-        let valorUnitario = produto.split('R$')[1];
-        let quantidade = document.getElementById('quantidade').value;
+        let valorUnitario = parseFloat(produto.split('R$')[1]);
+        let quantidade = parseInt(document.getElementById('quantidade').value);
 
-        //calcular o preço, o nosso subtotal
+        //Calcular o preço, o nosso subtotal
         let preco = quantidade * valorUnitario;
 
-        //adicionar o produto no carrinho
-        let carrinho = document.getElementById('lista-produtos');
-        carrinho.innerHTML += `<section class="carrinho__produtos__produto">
-        <span class="texto-azul">${quantidade}X</span> ${nomeProduto} <span class="texto-azul">R$${preco}</span>
-        </section>`
+        //Verifica se o produto já está no carrinho
+        let produtoExistente = retornarProduto(nomeProduto);
+
+        if(produtoExistente){
+            // Atualiza a quantidade e o preço do produto
+            produtoExistente.quantidade += quantidade
+            produtoExistente.preco += preco;
+        }
+        else{
+            // Adiciona o novo produto ao carrinho
+            carrinho.push({
+                nome: nomeProduto,
+                quantidade: quantidade,
+                preco: preco
+            });
+        }
 
         //atualizar o valor total
         totalGeral += preco;
-        let campoTotal = document.getElementById('valor-total');
-        campoTotal.textContent = `R$ ${totalGeral}`;
+        atualizarCarrinho();
+        atualizarCampoTotal();
         document.getElementById('quantidade').value = '';
     }
     else{
@@ -32,9 +44,10 @@ function adicionar(){
 function limpar(){
     totalGeral = 0;
     document.getElementById('lista-produtos').innerHTML = '';
-    document.getElementById('valor-total').textContent = 'R$ 0';
+    document.getElementById('valor-total').textContent = 'R$0';
     document.getElementById('produto').value = '';
     document.getElementById('quantidade').value = '';
+    carrinho = [];
 }
 
 function verificarCamposPreenchidos(){
@@ -46,4 +59,24 @@ function verificarCamposPreenchidos(){
     }
     return false;
 
+}
+
+function retornarProduto(nomeProduto){
+    return carrinho.find(item => item.nome === nomeProduto);
+}
+
+function atualizarCarrinho(){
+    let carrinhoElemento = document.getElementById('lista-produtos');
+    carrinhoElemento.innerHTML = '';
+
+    carrinho.forEach(item => {
+        carrinhoElemento.innerHTML += `<section class="carrinho__produtos__produto">
+            <span class="texto-azul">${item.quantidade}x</span> ${item.nome} <span class="texto-azul">R$${item.preco}</span>
+        </section>`;
+    });
+}
+
+function atualizarCampoTotal(){
+    let campoTotal = document.getElementById('valor-total');
+    campoTotal.textContent = `R$${totalGeral}`;
 }
