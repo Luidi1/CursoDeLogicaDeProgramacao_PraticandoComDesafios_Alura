@@ -44,7 +44,7 @@ function adicionar(){
 function limpar(){
     totalGeral = 0;
     document.getElementById('lista-produtos').innerHTML = '';
-    document.getElementById('valor-total').textContent = 'R$0';
+    document.getElementById('valor-total').textContent = 'R$0,00';
     document.getElementById('produto').value = '';
     document.getElementById('quantidade').value = '';
     carrinho = [];
@@ -71,12 +71,17 @@ function atualizarCarrinho(){
 
     carrinho.forEach(item => {
         carrinhoElemento.innerHTML += `<section class="carrinho__produtos__produto">
-            <span class="texto-azul">${item.quantidade}x</span> ${item.nome} <span class="texto-azul">R$${item.preco}</span>
+            <span class="texto-azul">${item.quantidade}x</span> ${item.nome} <span class="texto-azul">
+            R$${formatarPreco(item.preco)}</span>
         </section>`;
     });
 }
 
 function atualizarCampoTotal(){
     let campoTotal = document.getElementById('valor-total');
-    campoTotal.textContent = `R$${totalGeral}`;
+    campoTotal.textContent = `R$${formatarPreco(totalGeral)}`;
+}
+
+function formatarPreco(valor){
+    return valor.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 }
