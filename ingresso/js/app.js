@@ -14,7 +14,8 @@ function comprar(){
     }
     else{
         comprarInferior(qtd);
-    } 
+    }
+    limpar(); 
 }
 
 function comprarPista(qtd){
@@ -54,4 +55,7 @@ function comprarInferior(qtd){
     }
 }
 
+function limpar(){
+    document.getElementById('qtd').value = '';
+}
 
