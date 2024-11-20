@@ -96,8 +96,6 @@ function verificarCamposPreenchidos() {
     let de = document.getElementById('de').value;
     let ate = document.getElementById('ate').value;
     
-    let botaoSortear = document.getElementById('btn-sortear');
-
     // Verifica se todos os campos estão preenchidos
     if(quantidade && de && ate){
         habilitarBotaoSortear();
