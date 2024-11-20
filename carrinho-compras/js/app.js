@@ -10,6 +10,11 @@ function adicionar(){
         let valorUnitario = parseFloat(produto.split('R$')[1]);
         let quantidade = parseInt(document.getElementById('quantidade').value);
 
+        //Verifica se quantidade é menor que 0
+        if(quantidade <= 0 || isNaN(quantidade)){
+            alert('A quantidade deve ser maior que 0!');
+            return;
+        }
         //Calcular o preço, o nosso subtotal
         let preco = quantidade * valorUnitario;
 
@@ -37,7 +42,7 @@ function adicionar(){
         document.getElementById('quantidade').value = '';
     }
     else{
-        alert('Campo(s) "Produto" e/ou "Qtde." não preenchidos!')
+        alert('Campo(s) "Produto" e/ou "Qtde." não preenchidos!');
     }
 }
 
